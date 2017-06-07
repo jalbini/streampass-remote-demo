@@ -34,12 +34,4 @@ router.get('/planegame', function(req, res){
   res.sendfile('views/planegame.html');
 });
 
-router.get('/nes', function(req, res){
-  res.sendfile('views/nes_emu.html');
-});
-
-router.get('/snes', function(req, res){
-  res.sendfile('views/snes_emu.html');
-});
-
 module.exports = router;
