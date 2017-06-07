@@ -4,10 +4,12 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
+
+  background-color: #27aae1;
 }
 
 button:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 button.big {
@@ -35,13 +37,39 @@ section {
   top: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0,0,0,.9);
+  background-color: #27aae1;
   display: none;
+
+  font-family: 'Montserrat', 'Helvetica', 'Helvetica Neue', sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  text-align: center;
+  color: #ffffff;
 }
 
 section .content {
   text-align: center;
 }
+
+section button.circle {
+  width: 55%;
+  height: 33%;
+  
+  position: fixed;
+  top: 30%;
+  left: 22.5%;
+
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
+
+  background-color: white;
+
+  color: #27aae1;
+  font-size: 48px;
+  font-weight: 600;
+}
+
 
 section button.close {
   position: fixed;
@@ -52,6 +80,32 @@ section button.close {
 section button.close:after {
   content: "\00d7";
 }
+
+
+#ready .title {
+  width: 60%;
+  height: 14%;
+
+  position: fixed;
+  left: 20%;
+  top: 10%;
+}
+
+#ready button #check {
+  margin: 0 auto;
+  display: none;
+}
+
+#ready button.checked {
+  box-shadow: none;
+  font-size: 0px;
+  background-image=
+}
+
+#ready button.checked #check {
+  display: block;
+}
+
 
 #join {
   padding-top: 25%;

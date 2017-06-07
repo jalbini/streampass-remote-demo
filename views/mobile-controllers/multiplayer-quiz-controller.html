@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>Streampass Remote - MP Quiz</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/nunchuck.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/controller.js"></script>
+
+    <!-- Stylin' -->
+    <link href="stylesheets/normalize.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/animate.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:600' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/controller.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body onload="animateIn('ready')">
+    <section id="ready">
+      <div class="content">
+        <div class="title">Are you ready to play?</div>
+        <button class="circle" onclick="toggleReady()">
+          <svg id='check' width="89px" height="92px" viewBox="0 0 89 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Ready" transform="translate(-138.000000, -292.000000)" fill="#27AAE1">
+                      <path d="M203.197946,299.112 L173.524876,352.82829 L158.081756,340.25514 C152.959628,335.997382 145.167436,336.644515 140.842316,342.013637 C136.461057,347.131514 137.257193,354.923597 142.456061,359.419847 L169.143621,381.347377 C171.404499,383.13563 174.304117,384 177.122748,384 L179.366622,384 C182.934628,383.135663 185.936379,380.99825 187.763001,377.698493 L224.755421,310.821543 C228.063789,305.1288 225.832646,297.639083 219.986671,294.352733 C213.982624,291.051995 206.454866,293.168121 203.197946,299.112 Z" id="Page-1"></path>
+                  </g>
+              </g>
+          </svg>
+          READY!
+
+        </button>
+      </div>
+    </section>
+
+    <section id="buzzer">
+      <div class="content">
+        <button class="circle" onclick="buzzIn()">BUZZ!</button>
+      </div>
+    </section>
+
+    <section id="answer-select">
+      <div class="content">
+        <div class="upper">
+          <div class='countdown-timer'>:10</div>
+          <div class='score'>--- Score: 0 ---</div>
+          <div class='question-header'>Question #1</div>
+          <div class='question-text'>Lorem ipsum dolor sit amet, consecutur adipscing elit. Alquam augue lectus?</div>          
+        </div>
+
+        <div class="lower">
+          <button class="answer">Answer 1</button>
+          <button class="answer">Answer 2</button>
+          <button class="answer">Answer 3</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="result">
+      <div class="content">
+        <img class="result-image"></img>
+        <div class='score'>--- Score: 0 ---</div>
+        <div class='result-text'>OUT OF TIME!<div>
+      </div>
+    </section>
+  </body>
+</html>

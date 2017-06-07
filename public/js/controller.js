@@ -11,9 +11,21 @@ n.onJoin(function(data, err){
   }
 });
 
+function animateIn(id){
+  $('#' + id)
+      .addClass('animated slideInUp')
+      .css('display', 'block');
+}
+
+function toggleReady() {
+    $('#ready button').toggleClass('checked');
+}
+
+
+
 function bounceOut(id){
   $('#' + id)
-      .removeClass('animate bounceIn')
+      .removeClass('animated bounceIn')
       .addClass('animate bounceOut')
       .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
         $(this)
