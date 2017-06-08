@@ -79,15 +79,58 @@
 
             <section id='footer' class='layer' >
                 <div class='left'>
-                    <section id='user-lobby'></section>
-                    <section id='user-scores'></section>              
+                    <section id='user-lobby'>
+                        <div class='user-lobby-status invisible' id='ready-p1'>
+                            <div class='checkbox'></div>
+                            <span class='username'>Player 1</span>
+                        </div>
+
+                        <div class='user-lobby-status invisible' id='ready-p2'>
+                            <div class='checkbox'></div>
+                            <span class='username'>Player 2</span>
+                        </div>
+
+                        <div class='user-lobby-status invisible' id='ready-p3'>
+                            <div class='checkbox'></div>
+                            <span class='username'>Player 3</span>
+                        </div>
+
+                        <div class='user-lobby-status invisible' id='ready-p4'>
+                            <div class='checkbox'></div>
+                            <span class='username'>Player 3</span>
+                        </div>
+                    </section>
+
+
+                    <section id='user-scores'>
+                        <div class='user-score invisible' id='score-p1'>
+                            <div class='score'>0</div>
+                            <div class='username'>Player 1</div>
+                        </div>
+
+                        <div class='user-score invisible' id='score-p1'>
+                            <div class='score'>0</div>
+                            <div class='username'>Player 2</div>
+                        </div>
+
+                        <div class='user-score invisible' id='score-p1'>
+                            <div class='score'>0</div>
+                            <div class='username'>Player 3</div>
+                        </div>
+
+                        <div class='user-score invisible' id='score-p4'>
+                            <div class='score'>0</div>
+                            <div class='username'>Player 4</div>
+                        </div>
+
+                    </section>              
                 </div>
 
                 <div class='right'>
                     <div id='background-shape'></div>
                     <div id='status-area'>
                         <div id='status-text'>Starting in</div>
-                        <div id='countdown'>5</div>                        
+                        <div id='countdown' class='hidden'>5</div>
                     </div>
                 </div>
             </section>

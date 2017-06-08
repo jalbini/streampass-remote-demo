@@ -17,6 +17,10 @@ body,html {
   display: none;
 }
 
+.invisible {
+  opacity: 0;
+}
+
 .page-wrap {
   position: absolute;
   width: 1280px;
@@ -172,6 +176,89 @@ section.layer {
   left: 0px;
   top: 11px;
 }
+
+#footer .left #user-lobby {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 100%;
+}
+
+
+#footer .left #user-lobby .user-lobby-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 41px;
+
+  font-size: 28px;
+  font-weight: bold;
+  color: #e16e42;
+}
+
+#footer .left #user-lobby .user-lobby-status .checkbox {
+  width: 41px;
+  height: 41px;
+  background: url("/assets/quiz/checkbox-bg.jpg");
+}
+
+#footer .left #user-lobby .user-lobby-status.ready .checkbox {
+  background: url("/assets/quiz/checkbox-bg.jpg") -41px 0;
+}
+
+
+#footer .left #user-lobby .user-lobby-status .username {
+  margin-left: 10px;
+}
+
+
+
+#footer .left #user-scores {
+  display: flex;
+  justify-content: space-around;
+  align-items: top;
+
+  height: 160px;
+  width: 100%;
+
+  position: absolute;
+  bottom: 0px;
+}
+
+#footer .left #user-scores .user-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#footer .left #user-scores .user-score .score {
+  width: 150px;
+  height: 93px;
+
+  background-color: #ffffff;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.27);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 50px;
+  font-weight: bold;
+  color: #d85834;
+}
+
+#footer .left #user-scores .user-score .username {
+  margin-top: 10px;
+
+  font-size: 28px;
+  font-weight: bold;
+  color: #e16e42;
+}
+
+
+
 
 #footer .right {
   width: 360px;
