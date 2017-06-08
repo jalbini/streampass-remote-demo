@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Antenna-Medium";
+  src: url("/assets/Antenna-Medium.otf");
+}
+
+@font-face {
+  font-family: "Antenna-Black";
+  src: url("/assets/Antenna-Black.otf");
+}
+
+@font-face {
+  font-family: "Antenna-Bold";
+  src: url("/assets/Antenna-Bold.otf");
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -7,7 +22,7 @@
 body,html {
 	height: 100%;
 	width: 100%;
-  font-family: Antenna, sans-serif;
+  font-family: "Antenna-Bold", sans-serif;
   color: #ffffff;
 
   background-color: black;
@@ -20,6 +35,15 @@ body,html {
 .invisible {
   opacity: 0;
 }
+
+.light {
+  font-family: "Antenna-Medium";
+}
+
+.heavy {
+  font-family: "Antenna-Black";
+}
+
 
 .page-wrap {
   position: absolute;
@@ -54,7 +78,7 @@ section.layer {
 
 #main-content #splash #instructions {
   font-size: 28px;
-  font-weight: 500;
+  /*font-weight: 500;*/
 
   position: absolute;
   top: 53px;
@@ -62,17 +86,15 @@ section.layer {
 }
 
 #main-content #splash .title {
-  font-size: 80px;
-  font-weight: 900;
+  font-size: 86px;
 
   position: absolute;
-  top: 269px;
+  top: 261px;
   left: 434px;
 }
 
 #main-content #splash .subtitle {
   font-size: 34px;
-  font-weight: bold;
 
   position: absolute;
   top: 383px;
@@ -95,7 +117,6 @@ section.layer {
   align-items: center;
 
   font-size: 26px;
-  font-weight: bold;
   text-align: center;
   vertical-align: middle;
 }
@@ -118,7 +139,6 @@ section.layer {
   align-items: center;
 
   font-size: 26px;
-  font-weight: bold;
 }
 
 #main-content #quiz #question-text{
@@ -151,12 +171,11 @@ section.layer {
   left: 36px;
 
   font-size: 36px;
-  font-weight: bold;
 }
 
 #main-content #quiz .answer .answer-text{
   font-size: 28px;
-  font-weight: 500;
+  /*font-weight: 500;*/
 }
 
 #footer {
@@ -194,7 +213,6 @@ section.layer {
   height: 41px;
 
   font-size: 28px;
-  font-weight: bold;
   color: #e16e42;
 }
 
@@ -245,7 +263,6 @@ section.layer {
   align-items: center;
 
   font-size: 50px;
-  font-weight: bold;
   color: #d85834;
 }
 
@@ -253,7 +270,6 @@ section.layer {
   margin-top: 10px;
 
   font-size: 28px;
-  font-weight: bold;
   color: #e16e42;
 }
 
@@ -269,7 +285,6 @@ section.layer {
   top: 12px;
 
   font-size: 26px;
-  font-weight: bold;
 
   overflow: hidden;
 }
@@ -300,12 +315,10 @@ section.layer {
 
 #footer .right #status-area #status-text{
   font-size: 26px;
-  font-weight: bold;
 }
 
 #footer .right #status-area #countdown{
   font-size: 70px;
-  font-weight: bold;
 
   margin-left: 20px;
 }

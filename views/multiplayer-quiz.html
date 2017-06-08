@@ -6,6 +6,7 @@
         <meta name="root" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link href="stylesheets/animate.css" rel="stylesheet" type="text/css">
         <link href="stylesheets/quiz.css" rel="stylesheet" />
 
         <script src="js/nunchuck.js"></script>
@@ -13,57 +14,37 @@
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/multiplayer-quiz.js"></script>
 
-        <link href='http://fonts.googleapis.com/css?family=Montserrat:300' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Montserrat:600' rel='stylesheet' type='text/css'>
-        <script>player_data = {}; </script>
 
-        <style>
-            .code {
-                position: fixed;
-                font-size: 15em;
-                opacity: .5;
-                right: .2em;
-                bottom: 0;
-            }
-
-            /*.users {
-                position: fixed;
-                font-family: 'Montserrat', 'Helvetic Neue', 'Helvetica', sans-serif;
-                font-size: 1.2em;
-                top: 8px;
-                left: 8px;
-            }*/
-        </style>
     </head>
 
     <body>
         <div class="page-wrap">
             <section id='background' class='layer' >
-                <img class='background-image hidden' id="bg-intro" src="assets/quiz/bg-intro.jpg">
-                <img class='background-image' id="bg-quiz" src="assets/quiz/bg-quiz.jpg">                
+                <img class='background-image' id="bg-intro" src="assets/quiz/bg-intro.jpg">
+                <img class='background-image hidden' id="bg-quiz" src="assets/quiz/bg-quiz.jpg">                
             </section>
 
             <section id='main-content' class='layer' >
-                <section id='splash' class='content hidden' >
-                    <div id='instructions' class='hidden'>Press ready to start or wait for players to join</div>
-                    <div class='title'>TRIVIA</div>
+                <section id='splash' class='content' >
+                    <div id='instructions' class='hidden light'>Press ready to start or wait for players to join</div>
+                    <div class='title heavy'>TRIVIA</div>
                     <div class='subtitle'>Multiplayer winner earns 1 extra stream pass</div>
                 </section>
 
-                <section id='quiz' class='content' >
+                <section id='quiz' class='content hidden' >
                     <div id='question-area'>
                         <div id='question-text'>Who plays the character Logan?</div>
                         <div class='answer' id='answer-a'>
                             <span class='answer-label'>A</span>
-                            <span class='answer-text'>Michael Fassbender</span>
+                            <span class='answer-text light'>Michael Fassbender</span>
                         </div>
                         <div class='answer' id='answer-b'>
                             <span class='answer-label'>B</span>
-                            <span class='answer-text'>Patrick Stewart</span>
+                            <span class='answer-text light'>Patrick Stewart</span>
                         </div>
                         <div class='answer' id='answer-c'>
                             <span class='answer-label'>C</span>
-                            <span class='answer-text'>Hugh Jackman</span>
+                            <span class='answer-text light'>Hugh Jackman</span>
                         </div>
                     </div>
 
@@ -77,7 +58,7 @@
                 </section>
             </section>
 
-            <section id='footer' class='layer' >
+            <section id='footer' class='layer hidden' >
                 <div class='left'>
                     <section id='user-lobby'>
                         <div class='user-lobby-status invisible' id='ready-p1'>
