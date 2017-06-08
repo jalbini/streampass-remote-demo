@@ -30,6 +30,11 @@ n.onStateChange(function(state, data) {
     case 'answer-select':
       onShowAnswerSelect(data.questionNumber, data.currentScore);
       break;
+
+    case 'result':
+      onShowResult(data.result, data.currentScore);
+      break;
+
   }
 });
 
@@ -68,6 +73,28 @@ function onShowAnswerSelect(questionNumber, currentScore) {
 
   startCountdown();
   show('answer-select');
+}
+
+function onShowResult(result, currentScore) {
+  $('#result').removeClass('correct wrong out-of-time');
+  $('#result .score').text('------ Score: '+currentScore+' ------');
+
+  switch (result) {
+    case 'correct':
+      $('#result').addClass('correct');
+      $('#result .result-text').text('CORRECT!')
+      break;
+    case 'wrong':
+      $('#result').addClass('wrong');
+      $('#result .result-text').text('WRONG!')
+      break;
+    case 'out-of-time':
+      $('#result').addClass('out-of-time');
+      $('#result .result-text').text('OUT OF TIME!')
+      break;
+  }
+
+  show('result');
 }
 
 

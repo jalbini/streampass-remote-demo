@@ -62,18 +62,26 @@
                 </div>
 
                 <div class="lower">
-                    <button class="answer">Answer A</button>
-                    <button class="answer">Answer B</button>
-                    <button class="answer">Answer C</button>
+                    <button class="nunchuck-button answer" id="answer-a">Answer A</button>
+                    <button class="nunchuck-button answer" id="answer-b">Answer B</button>
+                    <button class="nunchuck-button answer" id="answer-c">Answer C</button>
                 </div>
             </div>
         </section>
 
         <section id="result">
-            <div class="content">
-                <img class="result-image"></img>
-                <div class='score'>--- Score: 0 ---</div>
-                <div class='result-text'>OUT OF TIME!<div>
+            <div class='upper'>
+                <img id='correct' class="result-image" src="assets/correct.svg"></img>
+                <img id='wrong' class="result-image" src="assets/wrong.svg"></img>
+                <img id='out-of-time' class="result-image" src="assets/out-of-time.svg"></img>                
+            </div>
+
+            <div class='middle'>
+                <div class='score'>--- Score: 0 ---</div>                
+            </div>
+
+            <div class='lower'>
+                <div class='result-text'>OUT OF TIME!<div>    
             </div>
         </section>
     </body>

@@ -56,8 +56,8 @@ section .content {
 }
 
 section button.circle {
-  width: 55%;
-  height: 33%;
+  width: 55vmin;
+  height: 55vmin;
 
   border: none;
   border-radius: 50%;
@@ -107,14 +107,17 @@ section button.close:after {
 }
 
 
-#ready .title {
-  width: 70%;
-  margin: 10% 0%;
+
+#ready {
+  height: 90%;
 }
 
-#ready button {
-  margin-bottom: 20%;
+#ready .title {
+  width: 70%;
+  margin: 3% 0% 5% 0%;
 }
+
+
 
 #ready button #check {
   margin: 0 auto;
@@ -193,4 +196,69 @@ section button.close:after {
 
 #answer-select .answer:first-child {
   margin: 0;
+}
+
+#result {
+  justify-content: flex-start;
+}
+
+#result .result-image {
+  width: 40vmin;
+  height: 40vmin;
+
+  display: none;
+}
+
+#result.correct #correct {
+  display: flex;
+}
+
+#result.wrong #wrong {
+  display: flex;
+}
+
+#result.out-of-time #out-of-time {
+  display: flex;
+}
+
+#result .score {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+#result .upper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 10%;
+  height: 40%;
+  width: 100%;
+}
+
+#result .middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 5%;
+  width: 100%;
+}
+
+#result .lower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 30%;
+  width: 100%;
+}
+
+
+#result .result-text {
+  font-size: 48px;
+  font-weight: 600;
 }
