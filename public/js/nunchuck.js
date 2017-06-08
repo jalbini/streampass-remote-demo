@@ -55,6 +55,7 @@
     if (this.type == 'player'){
       this.socket.emit('nunchuck-join', {
         id: id,
+        userId: this.id,
         username: username
       });
       this.username = username;
@@ -108,17 +109,7 @@
 
     for(var i = 0; i < buttons.length; i++){
       buttons[i].addEventListener('touchstart', function(e){
-        if (_instance.buttons.indexOf(this.id) < 0){
-          _instance.buttons.push(this.id);
-        }
-        _instance.socket.emit('nunchuck-data',
-          {
-            username: _instance.username,
-            roomId: _instance.roomId,
-            buttons: _instance.buttons,
-            orientation: _instance.prevData,
-            timestamp: Date.now()
-          });
+        _instance.pressButton(this.id);
       });
 
       buttons[i].addEventListener('touchmove', function(e){
@@ -126,29 +117,61 @@
       });
 
       buttons[i].addEventListener('touchend', function(e){
-        if (_instance.buttons.indexOf(this.id) > -1){
-          _instance.buttons.splice(_instance.buttons.indexOf(this.id), 1)
-        }
-        _instance.socket.emit('nunchuck-data',
-          {
-            username: _instance.username,
-            roomId: _instance.roomId,
-            buttons: _instance.buttons,
-            orientation: _instance.prevData,
-            timestamp: Date.now()
-          });
+        _instance.releaseButton(this.id);
       });
     }
-
-
   };
+
+  Nunchuck.prototype.pressButton = function(buttonId) {
+    if (_instance.buttons.indexOf(buttonId) < 0){
+      _instance.buttons.push(buttonId);
+      _instance.emitData();
+    }
+  };
+
+  Nunchuck.prototype.releaseButton = function(buttonId) {
+    if (_instance.buttons.indexOf(buttonId) > -1){
+      _instance.buttons.splice(_instance.buttons.indexOf(buttonId), 1);
+      _instance.emitData();
+    }
+  };
+
+  Nunchuck.prototype.emitData = function() {
+    _instance.socket.emit('nunchuck-data',
+      {
+        username: _instance.username,
+        roomId: _instance.roomId,
+        buttons: _instance.buttons,
+        orientation: _instance.prevData,
+        timestamp: Date.now()
+      });
+  };
+
 
   Nunchuck.prototype.receive = function(callback){
     this.socket.on('nunchuck-data', function(data){
       callback(data);
-    })
+    });
   };
 
+
+  // called by server to change controller states
+  Nunchuck.prototype.setState = function(userId, state, data) {
+    _instance.socket.emit('nunchuck-set-state',
+      {
+        userId: userId,
+        state: state,
+        data: data
+      });
+
+  };
+
+  // listened to by controller to react to controller state changes
+  Nunchuck.prototype.onStateChange = function(callback){
+    this.socket.on('nunchuck-set-state', function(data){
+      callback(data.state, data.data);
+    });
+  };
 
   window.nunchuck = nunchuck;
 
