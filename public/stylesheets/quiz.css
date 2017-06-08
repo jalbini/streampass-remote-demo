@@ -137,6 +137,11 @@ section.layer {
 
 }
 
+#main-content #quiz .answer.wrong{
+  background-color: #d97878;
+  border: solid 2px #ffffff;
+}
+
 #main-content #quiz .answer .answer-label{
   position: absolute;
   left: 36px;
@@ -151,10 +156,74 @@ section.layer {
 }
 
 #footer {
-  height: 114px;
-  top: 606px;
+  height: 126px;
+  top: 605px;
   z-index: 3;
+
+  background-image: url("/assets/quiz/footer-bg.png");
+
 }
+
+#footer .left {
+  width: 920px;
+  height: 115px;
+
+  position: absolute;
+  left: 0px;
+  top: 11px;
+}
+
+#footer .right {
+  width: 360px;
+  height: 114px;
+
+  position: absolute;
+  right: 0px;
+  top: 12px;
+
+  font-size: 26px;
+  font-weight: bold;
+
+  overflow: hidden;
+}
+
+#footer .right #background-shape {
+  position: absolute;
+  width: 360px;
+  height: 114px;
+
+  background-color: #e16e43;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+
+  transform-origin: 0% 100% 0;
+  transform: skew(-20deg);
+}
+
+#footer .right #status-area {
+  width: 320px;
+  height: 114px;
+
+  position: absolute;
+  right: 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#footer .right #status-area #status-text{
+  font-size: 26px;
+  font-weight: bold;
+}
+
+#footer .right #status-area #countdown{
+  font-size: 70px;
+  font-weight: bold;
+
+  margin-left: 20px;
+}
+
+
 
 /*.questionContainer {
   x: 438px;
