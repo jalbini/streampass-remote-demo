@@ -24,6 +24,8 @@ body,html {
 }
 
 .questionContainer {
+  x: 438px;
+  y: 69px;
   border: 1px solid rgba(0, 0, 0, 0.8);
   width: 798px;
   height: 475px;
