@@ -13,33 +13,21 @@ function isCallerMobile(req) {
 // Detect if mobile
 router.use(function(req, res, next){
   if (isCallerMobile(req)){
-    res.sendfile('views/controller.html')
+    res.sendfile('views/mobile-controllers/multiplayer-quiz-controller.html')
   } else {
     next();
 }});
 
 router.get('/', function(req, res) {
-  res.sendfile('views/index.html');
+  res.sendfile('views/multiplayer-quiz.html');
 });
 
 router.get('/mobile', function(req, res){
-  res.sendfile('views/controller.html');
+  res.sendfile('views/mobile-controllers/multiplayer-quiz-controller.html');
 });
 
 router.get('/test', function(req, res){
   res.sendfile('views/test_receiver.html');
-});
-
-router.get('/planegame', function(req, res){
-  res.sendfile('views/planegame.html');
-});
-
-router.get('/nes', function(req, res){
-  res.sendfile('views/nes_emu.html');
-});
-
-router.get('/snes', function(req, res){
-  res.sendfile('views/snes_emu.html');
 });
 
 module.exports = router;

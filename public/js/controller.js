@@ -11,9 +11,35 @@ n.onJoin(function(data, err){
   }
 });
 
+function animateIn(id){
+  $('#' + id)
+      .addClass('animated slideInUp')
+      .css('display', 'flex');
+}
+
+
+
+function animateOut(id){
+  $('#' + id)
+      .removeClass('animated slideInUp')
+      .addClass('animated slideOutUp')
+      .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+        $(this)
+            .css('display', 'none')
+            .removeClass('animated slideOutUp');
+        });
+}
+
+
+function toggleReady() {
+    $('#ready button').toggleClass('checked');
+}
+
+
+
 function bounceOut(id){
   $('#' + id)
-      .removeClass('animate bounceIn')
+      .removeClass('animated bounceIn')
       .addClass('animate bounceOut')
       .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
         $(this)
@@ -29,5 +55,5 @@ function join(){
 function bounceIn(id){
   $('#' + id)
       .addClass('animate bounceIn')
-      .css('display', 'block');
+      .css('display', 'flex');
 }

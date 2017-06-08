@@ -1,8 +1,10 @@
 var rooms = {};
+var users = {};
 
 module.exports = function(io) {
 
   // Socket code
+
   io.on('connection', function(socket){
     console.log('A user connected');
 
@@ -11,38 +13,47 @@ module.exports = function(io) {
     socket.on('disconnect', function(){
       if (type === 'host' && _id){
         delete rooms[_id]
+      } else {
+
       }
     });
 
     socket.on('nunchuck-create', function(id){
-      socket.join(id);
       console.log("Created a room with ID: " + id);
-      rooms[id] = true;
+
+      rooms[id] = socket;
+
       type = 'host';
       _id = id;
-      console.log(rooms);
     });
 
     socket.on('nunchuck-join', function(msg){
-
       var response = {
+        userId: msg.userId,
         username: msg.username,
-        id: msg.id,
+
+        id: msg.id, //roomId
         success: false,
         msg: "Unknown Error"
       };
 
       if (type !== 'host' && rooms[msg.id]){
+        console.log("User " + msg.username + " (#" + msg.userId + ") joined room " + msg.id);
 
-        socket.join(msg.id);
-        console.log("User " + msg.username + " joined room " + msg.id);
+        // store user
         type = 'player';
 
+        _id = msg.userId;
+        users[_id] = socket;
+
+        // create response
         response.success = true;
         response.msg = "Successfully joined room.";
 
-        io.to(msg.id).emit('nunchuck-join', response);
-        return
+        // emit response to both room and user
+        rooms[msg.id].emit('nunchuck-join', response);
+        socket.emit('nunchuck-join', response);
+        return;
       }
 
       if (type === 'host'){
@@ -54,12 +65,19 @@ module.exports = function(io) {
       }
 
       socket.emit('nunchuck-join', response);
-
     });
 
     socket.on('nunchuck-data', function(data){
-      if (type === 'player'){
-        io.to(data.roomId).emit('nunchuck-data', data)
+      if (type === 'player' && rooms[data.roomId]){
+        rooms[data.roomId].emit('nunchuck-data', data)
+      }
+    })
+
+    socket.on('nunchuck-set-state', function(data){
+      console.log("Room #" + _id + " setting player #" + data.userId + " state to " + data.state);
+
+      if (type === 'host' && users[data.userId]){
+        users[data.userId].emit('nunchuck-set-state', data);
       }
     })
   });
