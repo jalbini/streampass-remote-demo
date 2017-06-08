@@ -4,6 +4,7 @@
     <title>Plane Game - NunchuckJs</title>
     <meta name="root" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height" />
     <link href="stylesheets/planegame.css" rel="stylesheet" />
+    <link href="stylesheets/quiz.css" rel="stylesheet" />
     <script src="js/nunchuck.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -49,22 +50,38 @@
         bottom: 0;
       }
 
-      .users {
+      /*.users {
         position: fixed;
         font-family: 'Montserrat', 'Helvetic Neue', 'Helvetica', sans-serif;
         font-size: 1.2em;
         top: 8px;
         left: 8px;
-      }
+      }*/
     </style>
   </head>
 
   <body>
 
-    <div class="code"></div>
+    <!-- <div class="code"></div>
 
-    <div class="users">USERS ONLINE:</div>
-
+    <div class="users">USERS ONLINE:</div> -->
+    <div class="container">
+      <div class="BGImage">
+      </div>
+      <div class="characterImage">
+      </div>
+      <div class="introText">
+        <div class="titleText">
+        </div>
+        <div class="streamPassText">
+      </div>
+      <div class="questionContainer">
+      </div>
+      <div class="footer">
+        <div class="users">This is where the users will be</div>
+        <div class="rightText">Buzz Now!</div>
+      </div>
+    </div>
 
     <script src="plugins/cutjs/cut-core.js"></script>
     <script src="plugins/cutjs/cut-mouse.js"></script>
