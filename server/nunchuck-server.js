@@ -1,6 +1,8 @@
 var rooms = {};
 var users = {};
 
+var newestRoomId = null;
+
 module.exports = function(io) {
 
   // Socket code
@@ -12,22 +14,28 @@ module.exports = function(io) {
 
     socket.on('disconnect', function(){
       if (type === 'host' && _id){
-        delete rooms[_id]
-      } else {
-
+        delete rooms[_id];
+      } else if (type === 'player' && _id) {
+        delete users[_id];
       }
     });
 
     socket.on('nunchuck-create', function(id){
       console.log("Created a room with ID: " + id);
 
-      rooms[id] = socket;
-
       type = 'host';
       _id = id;
+      rooms[id] = socket;
+      
+      newestRoomId = _id;
     });
 
     socket.on('nunchuck-join', function(msg){
+      // default to newest room if no room id given
+      if (msg.id == null) {
+        msg.id = newestRoomId;
+      }
+
       var response = {
         userId: msg.userId,
         username: msg.username,

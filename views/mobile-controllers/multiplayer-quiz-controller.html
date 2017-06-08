@@ -20,7 +20,7 @@
         <link href="stylesheets/controller.css" rel="stylesheet" type="text/css">
 
     </head>
-    <body onload="animateIn('name-input')">
+    <body onload="show('name-input')">
         <section id="name-input">
             <div class="title">Enter your name:</div>
             <input type="text" name="" onchange="onNameInput()"></input>
@@ -49,9 +49,7 @@
         </section>
 
         <section id="buzzer">
-            <div class="content">
-                <button class="circle" onclick="buzzIn()">BUZZ!</button>
-            </div>
+            <button class="circle nunchuck-button" id="buzz" onclick="buzzIn()">BUZZ!</button>
         </section>
 
         <section id="answer-select">
@@ -64,9 +62,9 @@
                 </div>
 
                 <div class="lower">
-                    <button class="answer">Answer 1</button>
-                    <button class="answer">Answer 2</button>
-                    <button class="answer">Answer 3</button>
+                    <button class="answer">Answer A</button>
+                    <button class="answer">Answer B</button>
+                    <button class="answer">Answer C</button>
                 </div>
             </div>
         </section>
