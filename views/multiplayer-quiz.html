@@ -1,101 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Plane Game - NunchuckJs</title>
-    <meta name="root" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height" />
-    <link href="stylesheets/planegame.css" rel="stylesheet" />
-    <link href="stylesheets/quiz.css" rel="stylesheet" />
-    <script src="js/nunchuck.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>player_data = {}; </script>
+    <head>
+        <title>Plane Game - NunchuckJs</title>
 
-    <script>
-      var socket = io();
-      var n = nunchuck.init('host', socket);
-      var players = {};
-      var numPlayers = 1234;
+        <meta name="root" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      n.onJoin(function(data){
+        <link href="stylesheets/quiz.css" rel="stylesheet" />
 
-        if (!players[data.username]){
-          players[data.username] = numPlayers;
-          numPlayers+=1;
-          createPlane(players[data.username]);
-          $('.users').append("<br><strong>" + data.username + "</strong>")
-        }
+        <script src="js/nunchuck.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/multiplayer-quiz.js"></script>
 
-        n.receive(function(data){
-          if (players[data.username]){
-            data.id = players[data.username];
-            movePlane(data)
-          }
-        })
-      });
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:600' rel='stylesheet' type='text/css'>
+        <script>player_data = {}; </script>
 
-      $(document).ready(function(){
-        $('.code').text(n.roomId)
-      });
+        <style>
+            .code {
+                position: fixed;
+                font-size: 15em;
+                opacity: .5;
+                right: .2em;
+                bottom: 0;
+            }
 
-    </script>
+            /*.users {
+                position: fixed;
+                font-family: 'Montserrat', 'Helvetic Neue', 'Helvetica', sans-serif;
+                font-size: 1.2em;
+                top: 8px;
+                left: 8px;
+            }*/
+        </style>
+    </head>
 
-    <style>
-      .code {
-        position: fixed;
-        font-size: 15em;
-        opacity: .5;
-        right: .2em;
-        bottom: 0;
-      }
+    <body>
+        <div class="page-wrap">
+            <section id='background' class='layer' >
+                <img class='background-image hidden' id="bg-intro" src="assets/quiz/bg-intro.jpg">
+                <img class='background-image' id="bg-quiz" src="assets/quiz/bg-quiz.jpg">                
+            </section>
 
-      /*.users {
-        position: fixed;
-        font-family: 'Montserrat', 'Helvetic Neue', 'Helvetica', sans-serif;
-        font-size: 1.2em;
-        top: 8px;
-        left: 8px;
-      }*/
-    </style>
-  </head>
+            <section id='main-content' class='layer' >
+                <section id='splash' class='content hidden' >
+                    <div id='instructions' class='hidden'>Press ready to start or wait for players to join</div>
+                    <div class='title'>TRIVIA</div>
+                    <div class='subtitle'>Multiplayer winner earns 1 extra stream pass</div>
+                </section>
 
-  <body>
+                <section id='quiz' class='content' >
+                    <div id='question-area'>
+                        <div id='question-text'>Who plays the character Logan?</div>
+                        <div class='answer' id='answer-a'>
+                            <span class='answer-label'>A</span>
+                            <span class='answer-text'>Michael Fassbender</span>
+                        </div>
+                        <div class='answer' id='answer-b'>
+                            <span class='answer-label'>B</span>
+                            <span class='answer-text'>Patrick Stewart</span>
+                        </div>
+                        <div class='answer' id='answer-c'>
+                            <span class='answer-label'>C</span>
+                            <span class='answer-text'>Hugh Jackman</span>
+                        </div>
+                    </div>
 
-    <!-- <div class="code"></div>
+                    <div id='bounty'>
+                        +100 pts
+                    </div>
+                </section>
 
-    <div class="users">USERS ONLINE:</div> -->
-    <div class="container">
-      <div class="BGImage">
-      </div>
-      <div class="characterImage">
-      </div>
-      <div class="introText">
-        <div class="titleText">
+                <section id='result' class='content hidden' >
+                    
+                </section>
+            </section>
+
+            <section id='footer' class='layer hidden' >
+                <div class='left'>
+                    <section id='user-lobby'></section>
+                    <section id='user-scores'></section>              
+                </div>
+
+                <div class='right'>
+                    <div id='status-text'></div>
+                    <div id='countdown'></div>
+                </div>
+            </section>
         </div>
-        <div class="streamPassText">
-      </div>
-      <div class="questionContainer">
-        <div class="questionTitle">question title</div>
-        <div class="answers">
-          <div class="answer">A</div>
-          <div class="answer">B</div>
-          <div class="answer">C</div>
-        </div>
-      </div>
-      <div class="footer">
-        <div class="users">This is where the users will be</div>
-        <div class="rightText">Buzz Now!</div>
-      </div>
-    </div>
-
-    <script src="plugins/cutjs/cut-core.js"></script>
-    <script src="plugins/cutjs/cut-mouse.js"></script>
-    <script src="plugins/cutjs/cut-loader.web.js"></script>
-    <script src="plugins/cutjs/planegame.js"></script>
-    <script src="plugins/cutjs/planegame_textures.js"></script>
-    <script src="plugins/cutjs/receiver.js"></script>
-
-  </body>
-
+    </body>
 </html>

@@ -7,23 +7,156 @@
 body,html {
 	height: 100%;
 	width: 100%;
-	font-family: sans-serif;
+  font-family: Antenna, sans-serif;
+  color: #ffffff;
+
+  background-color: black;
 }
 
-.container {
-  position: relative;
+.hidden {
+  display: none;
+}
+
+.page-wrap {
+  position: absolute;
   width: 1280px;
   height: 720px;
-  background-color: grey;
 }
 
-.BGImage {
+section.layer {
+  position: absolute;
+
+  top: 0px;
+  left: 0px;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+#background {
+  z-index: 1;
+}
+
+#background .background-image {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-.questionContainer {
+#main-content {
+  z-index: 2;
+}
+
+#main-content #splash #instructions {
+  font-size: 28px;
+  font-weight: 500;
+
+  position: absolute;
+  top: 53px;
+  left: 471px;
+}
+
+#main-content #splash .title {
+  font-size: 80px;
+  font-weight: 900;
+
+  position: absolute;
+  top: 269px;
+  left: 434px;
+}
+
+#main-content #splash .subtitle {
+  font-size: 34px;
+  font-weight: bold;
+
+  position: absolute;
+  top: 383px;
+  left: 434px;
+}
+
+#main-content #quiz #bounty {
+  width: 164px;
+  height: 54px;
+
+  background-color: #e16e43;
+  border: solid 1px #dedede;
+
+  position: absolute;
+  top: 27px;
+  left: 755px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+#main-content #quiz #question-area {
+  width: 798px;
+  height: 475px;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  border: solid 1px #bcbcbc;
+
+  position: absolute;
+  top: 67px;
+  left: 438px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 26px;
+  font-weight: bold;
+}
+
+#main-content #quiz #question-text{
+  margin-bottom: 30px;
+}
+
+#main-content #quiz .answer{
+  width: 660px;
+  height: 83px;
+
+  background-color: rgba(255, 255, 255, 0.16);
+  border: solid 2px #ffffff;
+  margin: 10px 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+}
+
+#main-content #quiz .answer .answer-label{
+  position: absolute;
+  left: 36px;
+
+  font-size: 36px;
+  font-weight: bold;
+}
+
+#main-content #quiz .answer .answer-text{
+  font-size: 28px;
+  font-weight: 500;
+}
+
+#footer {
+  height: 114px;
+  top: 606px;
+  z-index: 3;
+}
+
+/*.questionContainer {
   x: 438px;
   y: 69px;
   border: 1px solid rgba(0, 0, 0, 0.8);
@@ -31,11 +164,11 @@ body,html {
   height: 475px;
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-.footer {
+*/
+/*.footer {
     position: absolute;
     bottom: 0; top: auto;
     width: 100%;
     height: 120px;
     border: 2px solid yellow;
-}
+}*/
