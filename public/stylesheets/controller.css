@@ -54,7 +54,7 @@ section .content {
 section button.circle {
   width: 55%;
   height: 33%;
-  
+
   position: fixed;
   top: 30%;
   left: 22.5%;
@@ -104,4 +104,70 @@ section button.close:after {
 
 #ready button.checked #check {
   display: block;
+}
+
+
+
+#answer-select .content {
+  height: 100%;
+  width: 100%;
+}
+
+#answer-select .upper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+}
+
+#answer-select .lower {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  background-color: #fbfbfb;
+}
+
+#answer-select .countdown-timer {
+  font-size: 72px;
+  font-weight: bold;
+}
+
+#answer-select .score {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+#answer-select .question-header {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 20px 0 0;
+}
+
+#answer-select .question-text {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 10px 0 0;
+}
+
+#answer-select .answer {
+  width: 80%;
+  height: auto;
+  padding: 20px;
+  color: #27aae1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: 1px solid #27aae1;
+  border-radius: 50px;
+  background-color: transparent;
+  margin: 20px 0 0;
+}
+
+#answer-select .answer:first-child {
+  margin: 0;
 }
