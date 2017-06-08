@@ -1,5 +1,16 @@
-var socket = io();
+/////////////////////
+// Local Variables //
+/////////////////////
 
+var username;
+
+
+
+////////////////////
+// Nunchuck Setup //
+////////////////////
+
+var socket = io();
 var n = nunchuck.init('player', socket);
 
 n.onJoin(function(data, err){
@@ -11,13 +22,38 @@ n.onJoin(function(data, err){
   }
 });
 
+
+
+////////////////////
+// Event Handlers //
+////////////////////
+
+function onNameInput() {
+  username = $('#name-input input').val();
+
+  // replace username placeholder in next streen
+  $('#ready div.title').html(
+    $('#ready div.title').html().replace('[username]', username)
+  );
+
+  animateOut('name-input');
+  animateIn('ready');
+}
+
+function onPlayerReady() {
+  $('#ready button').addClass('checked');
+}
+
+
+///////////////////////
+// Animation Helpers //
+///////////////////////
+
 function animateIn(id){
   $('#' + id)
       .addClass('animated slideInUp')
       .css('display', 'flex');
 }
-
-
 
 function animateOut(id){
   $('#' + id)
@@ -32,7 +68,6 @@ function animateOut(id){
 
 
 function toggleReady() {
-    $('#ready button').toggleClass('checked');
 }
 
 
