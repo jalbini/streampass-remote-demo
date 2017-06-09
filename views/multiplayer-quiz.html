@@ -21,7 +21,7 @@
         <div class="page-wrap">
             <section id='background' class='layer' >
                 <img class='background-image' id="bg-intro" src="assets/quiz/bg-intro.jpg">
-                <img class='background-image hidden' id="bg-quiz" src="assets/quiz/bg-quiz.jpg">                
+                <img class='background-image invisible' id="bg-quiz" src="assets/quiz/bg-quiz.jpg">                
             </section>
 
             <section id='main-content' class='layer' >
@@ -83,18 +83,18 @@
                     </section>
 
 
-                    <section id='user-scores'>
+                    <section id='user-scores' class='hidden'>
                         <div class='user-score invisible' id='score-p1'>
                             <div class='score'>0</div>
                             <div class='username'>Player 1</div>
                         </div>
 
-                        <div class='user-score invisible' id='score-p1'>
+                        <div class='user-score invisible' id='score-p2'>
                             <div class='score'>0</div>
                             <div class='username'>Player 2</div>
                         </div>
 
-                        <div class='user-score invisible' id='score-p1'>
+                        <div class='user-score invisible' id='score-p3'>
                             <div class='score'>0</div>
                             <div class='username'>Player 3</div>
                         </div>
@@ -110,7 +110,7 @@
                 <div class='right'>
                     <div id='background-shape'></div>
                     <div id='status-area'>
-                        <div id='status-text'>Starting in</div>
+                        <div id='status-text'>0 players ready</div>
                         <div id='countdown' class='hidden'>5</div>
                     </div>
                 </div>

@@ -20,6 +20,7 @@
    */
   function Nunchuck(options){
     _instance = this;
+
     this.id = Math.floor(Math.random()*9000) + 1000;
     this.username = "";
     this.roomId = this.id;
@@ -139,6 +140,7 @@
   Nunchuck.prototype.emitData = function() {
     _instance.socket.emit('nunchuck-data',
       {
+        userId: _instance.id,
         username: _instance.username,
         roomId: _instance.roomId,
         buttons: _instance.buttons,
