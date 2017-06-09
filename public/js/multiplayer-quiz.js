@@ -10,6 +10,38 @@ var gameState = {
   answerTimeoutId: null
 };
 
+var questions = [
+  {
+    "question":"What mutant team is Logan part of?",
+    "answers": [
+      "Justice League",
+      "X-Men",
+      "Golden State Warriors"
+    ],
+    "correctAnswer": "answer-b",
+    "bounty": 100
+  },
+  {
+    "question":"What is Logan's superhero name?",
+    "answers": [
+      "Wolverine",
+      "Wolverine",
+      "It's Wolverine"
+    ],
+    "correctAnswer": "answer-a",
+    "bounty": 50
+  },
+  {
+    "question":"How tall is Wolverine in the comic books?",
+    "answers": [
+      "160.02cm",
+      "160.03cm",
+      "160.04cm"
+    ],
+    "correctAnswer": "answer-a",
+    "bounty": 300
+  }
+]
 
 
 var init = function() {
@@ -156,12 +188,16 @@ var onPlayerBuzz = function(player) {
     });
 
     gameState.answerTimeoutId = setTimeout(function(){
+      player.score -= gameState.bounty;
       n.setState(player.id, 'result', {
         currentScore: player.score,
         result: 'out-of-time'
       });
 
-      updateStatus('OUT OF TIME!')
+      updateStatus('OUT OF TIME!');
+
+      setTimeout(resetBuzzers, 2000);
+      setTimeout(updateStatus, 2000, 'BUZZ NOW!'); 
     }, 10000, player);
 
     var suffix = '-p' + player.pnum.toString();
@@ -196,15 +232,16 @@ var onPlayerAnswer = function(player, answer) {
   } else {
     $(`#${answer}`).addClass('wrong');
 
+    player.score -= gameState.bounty;
+
     n.setState(player.id, 'result', {
       currentScore: player.score,
       result: 'wrong'
     });    
 
     updateStatus('WRONG!');
-    setTimeout(updateStatus, 2000, 'BUZZ NOW!');
-
-    gameState.openBuzzer = true;
+    setTimeout(resetBuzzers, 2000);
+    setTimeout(updateStatus, 2000, 'BUZZ NOW!'); 
   }
 
 
@@ -260,6 +297,13 @@ var updatePlayerUI = function(player) {
   }
 }
 
+var resetBuzzers = () => {
+    gameState.openBuzzer = true;
+
+    gameState.players.map(
+      (player) => n.setState(player.id, 'buzzer')
+    );
+}
 
 var justPressed =  (buttonName, player) => {
   return player.state 
@@ -284,9 +328,36 @@ var updateStatus = (statusText) => {
 };
 
 var nextQuestion = () => {
+  // hide elements
+    if (questions.length === 0) {
+      showResult();
+      return;
+    }
+
+
+  $('#main-content').fadeOut(300).queue(function(next){
+    var nextQuestion = questions.pop();
+
+    gameState.bounty = nextQuestion.bounty;
+    gameState.correctAnswer = nextQuestion.correctAnswer;
+    gameState.questionNum += 1;
+
+    $('#bounty').text(`+${gameState.bounty} pts`);
+    $('#question-text').text(nextQuestion.question);
+
+    $('#answer-a').text(nextQuestion.answers[0]);
+    $('#answer-b').text(nextQuestion.answers[1]);
+    $('#answer-c').text(nextQuestion.answers[2]);
+
+    $('.answer').removeClass('wrong').removeClass('correct');
+    $('.user-score').removeClass('faded');
+
+    resetBuzzers();
+    next();
+
+  }).delay(100).fadeIn(350);
   updateStatus('BUZZ NOW!');
 
-  $('#bounty').text(`+${bounty} pts`);
 
 };
 
