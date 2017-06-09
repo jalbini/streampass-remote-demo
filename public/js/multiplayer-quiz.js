@@ -361,6 +361,27 @@ var nextQuestion = () => {
 
 };
 
+var showResult = () => {
+  $('#footer').removeClass('fadeInUp').addClass('fadeOutDown');
+
+  $('#main-content').fadeOut(300).queue(function(next){
+    $('#quiz').addClass('hidden');
+    $('#result').removeClass('hidden');
+
+    var winner = gameState.players[0]
+    gameState.players.map( (player) => {
+      if (player.score > winner.score) {
+        winner = player;
+      }
+    });
+
+    $('#winner-text').text(`${winner.username} wins!`);
+    $('#winner-score').text(winner.score);
+
+    next();
+  }).delay(100).fadeIn(350);
+};
+
 $(document).ready(function(){
   init();
 });
