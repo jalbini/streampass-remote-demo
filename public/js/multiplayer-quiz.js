@@ -7,7 +7,8 @@ var gameState = {
   openBuzzer: true,
   correctAnswer: 'answer-c',
   bounty: 100,
-  answerTimeoutId: null
+  answerTimeoutId: null,
+  gameOver: false
 };
 
 var questions = [
@@ -135,7 +136,13 @@ var onPlayerJoin = function(data) {
     sendStatusTo(data.userId, 'haha too slow');
     setTimeout(sendStatusTo, 3000, data.userId, `nice try ${data.username}`);
     setTimeout(sendStatusTo, 7000, data.userId, 'not really tho');
-    setTimeout(sendStatusTo, 110000, data.userId, 'vote for engagement-sync');
+    setTimeout(sendStatusTo, 11000, data.userId, 'vote for engagement-sync');
+    return;
+  } else if (gameState.gameOver) {
+    sendStatusTo(data.userId, 'sorry m8 the game is already over');
+    setTimeout(sendStatusTo, 3000, data.userId, `try again later`);
+    setTimeout(sendStatusTo, 7000, data.userId, `or don't, i'm not the cops`);
+    setTimeout(sendStatusTo, 11000, data.userId, 'vote for engagement-sync');
     return;
   }
 
@@ -385,6 +392,8 @@ var nextQuestion = () => {
 };
 
 var showResult = () => {
+  gameState.gameOver = true;
+
   $('#footer').removeClass('fadeInUp').addClass('fadeOutDown');
 
   $('#main-content').fadeOut(300).queue(function(next){
@@ -397,6 +406,24 @@ var showResult = () => {
         winner = player;
       }
     });
+
+
+    gameState.players.map( (player) => {
+      if (player === winner) {
+        sendStatusTo(player, `You win!`)
+        setTimeout(sendStatusTo, 4000, player, `Congratulations!`);
+        setTimeout(sendStatusTo, 9000, player, "Don't get too excited tho, it's just a game");
+        setTimeout(sendStatusTo, 15000, player, 'vote for engagement-sync');
+      } else {
+        sendStatusTo(player, `... you lost`);
+        setTimeout(sendStatusTo, 4000, player, `How did you let this happen`);
+        setTimeout(sendStatusTo, 9000, player, "Don't feel bad, I'm sure you're good at other things");
+        setTimeout(sendStatusTo, 15000, player, "probably");
+        setTimeout(sendStatusTo, 17000, player, 'vote for engagement-sync');
+      }
+    })
+
+
 
     $('#winner-text').text(`${winner.username} wins!`);
     $('#winner-score').text(winner.score);
