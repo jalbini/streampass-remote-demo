@@ -76,6 +76,8 @@ function onShowAnswerSelect(questionNumber, currentScore) {
 }
 
 function onShowResult(result, currentScore) {
+  stopCountdown();
+
   $('#result').removeClass('correct wrong out-of-time');
   $('#result .score').text('------ Score: '+currentScore+' ------');
 
@@ -112,9 +114,7 @@ function startCountdown() {
 }
 
 function tick() {
-  if (tickTimeoutId) {
-    clearTimeout(tickTimeoutId);    
-  }
+  tickTimeoutId = null;
 
   // update display
   $('#answer-select .countdown-timer').text(
@@ -129,12 +129,16 @@ function tick() {
   countdownValue -= 1;
 
   if (countdownValue >= 0) {
-    setTimeout(tick, 1000);
+    tickTimeoutId = setTimeout(tick, 1000);
   }
 }
 
 function stopCountdown() {
-
+  if (tickTimeoutId) {
+    try {
+      clearTimeout(tickTimeoutId);
+    } catch(e) {}
+  }
 }
 
 

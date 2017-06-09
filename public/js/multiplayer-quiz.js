@@ -189,11 +189,14 @@ var onPlayerBuzz = function(player) {
 
     gameState.answerTimeoutId = setTimeout(function(){
       player.score -= gameState.bounty;
+
+
       n.setState(player.id, 'result', {
         currentScore: player.score,
         result: 'out-of-time'
       });
 
+      updatePlayerUI(player);
       updateStatus('OUT OF TIME!');
 
       setTimeout(resetBuzzers, 2000);
@@ -299,6 +302,7 @@ var updatePlayerUI = function(player) {
 
 var resetBuzzers = () => {
     gameState.openBuzzer = true;
+    $('.user-score').removeClass('faded');
 
     gameState.players.map(
       (player) => n.setState(player.id, 'buzzer')
@@ -350,8 +354,7 @@ var nextQuestion = () => {
     $('#answer-c').text(nextQuestion.answers[2]);
 
     $('.answer').removeClass('wrong').removeClass('correct');
-    $('.user-score').removeClass('faded');
-
+    
     resetBuzzers();
     next();
 
