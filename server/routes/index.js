@@ -19,7 +19,7 @@ router.use(function(req, res, next){
 }});
 
 router.get('/', function(req, res) {
-  res.sendfile('views/mobile-controllers/multiplayer-quiz-controller.html');
+  res.sendfile('views/index.html');
 });
 
 router.get('/mp-quiz', function(req, res) {
