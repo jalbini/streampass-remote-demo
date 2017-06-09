@@ -45,6 +45,9 @@ var questions = [
 
 
 var init = function() {
+  sizeToFit();
+  listenForResizeEvents();
+
   createRoom();
   showIntro();
 };
@@ -126,6 +129,10 @@ var createRoom = function() {
 
 
 var onPlayerJoin = function(data) {
+  if (gameState.players.length >= 4) {
+    return;
+  }
+
   var userId = data.userId;
   var username = data.username;
 
@@ -354,7 +361,7 @@ var nextQuestion = () => {
     $('#answer-c').text(nextQuestion.answers[2]);
 
     $('.answer').removeClass('wrong').removeClass('correct');
-    
+
     resetBuzzers();
     next();
 
@@ -389,8 +396,31 @@ $(document).ready(function(){
   init();
 });
 
+var listenForResizeEvents = function() {
+  try {
+    window.addEventListener('resize', sizeToFit);
 
+  } catch (err) {}
+};
 
+var sizeToFit = function() {
+    var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 1920);
+    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 1080)
+
+    var scaleFactor = Math.min(viewportWidth / 1280, viewportHeight / 720);
+    var scaledWidth = 1280 * scaleFactor;
+    var scaledHeight = 720 * scaleFactor;
+        
+    var top = Math.max(viewportHeight - scaledHeight, 0) / 2;
+    var left = Math.max(viewportWidth - scaledWidth, 0) / 2;
+
+    $('.page-wrap').css({
+      'transform': `scale(${scaleFactor})`,
+      'top': top,
+      'left': left
+    });
+
+};
 
 
 
