@@ -262,3 +262,11 @@ section button.close:after {
   font-size: 48px;
   font-weight: 600;
 }
+
+#status {
+  height: 100%;
+}
+
+#status .title {
+  width: 80%;
+}

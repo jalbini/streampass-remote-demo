@@ -35,6 +35,8 @@ n.onStateChange(function(state, data) {
       onShowResult(data.result, data.currentScore);
       break;
 
+    case 'status':
+      onShowStatus(data.message);
   }
 });
 
@@ -99,6 +101,18 @@ function onShowResult(result, currentScore) {
   show('result');
 }
 
+function onShowStatus(message) {
+  if (currentState === 'status') {
+    animateOut(currentState);
+    currentState = null;
+
+    setTimeout(onShowStatus, 200, message);
+    return;
+  }
+
+  $('#status .title').text(message);
+  show('status');
+}
 
 ///////////////////////
 // Countdown Helpers //

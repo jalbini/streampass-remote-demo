@@ -68,6 +68,8 @@ var startGame = function() {
 
   $('#instructions').removeClass('fast-animated fadeInUp').addClass('fast-animated fadeOutUp');
 
+  sendStatusToAll('Game starting...')
+
   tickCountdown(3, showQuiz);
 }
 
@@ -130,6 +132,10 @@ var createRoom = function() {
 
 var onPlayerJoin = function(data) {
   if (gameState.players.length >= 4) {
+    sendStatusTo(data.userId, 'haha too slow');
+    setTimeout(sendStatusTo, 3000, data.userId, `nice try ${data.username}`);
+    setTimeout(sendStatusTo, 7000, data.userId, 'not really tho');
+    setTimeout(sendStatusTo, 110000, data.userId, 'vote for engagement-sync');
     return;
   }
 
@@ -179,7 +185,10 @@ var onPlayerReady = function(player) {
   if(!gameState.started) {
     if(allPlayersReady()) {
       startGame();
+    } else {
+      sendStatusTo(player, 'Waiting for all players to be ready...')
     }
+
   } else {
     n.setState(player.id, 'buzzer');
   }
@@ -193,6 +202,10 @@ var onPlayerBuzz = function(player) {
       currentScore: player.score,
       questionNumber: gameState.questionNum
     });
+
+    gameState.players.filter( (p) => p !== player ).map(
+      (p) => sendStatusTo(p, `${player.username} is answering`)
+    )
 
     gameState.answerTimeoutId = setTimeout(function(){
       player.score -= gameState.bounty;
@@ -422,5 +435,17 @@ var sizeToFit = function() {
 
 };
 
+var sendStatusTo = function(id, message) {
+  if (typeof id === 'object' && typeof id.id === 'number') {
+    id = id.id;
+  }
+
+  n.setState(id, 'status', {
+    message: message
+  });
+};
 
 
+var sendStatusToAll = function(message) {
+  gameState.players.map((p) => sendStatusTo(p, message) );
+};
