@@ -19,8 +19,13 @@ router.use(function(req, res, next){
 }});
 
 router.get('/', function(req, res) {
+  res.sendfile('views/mobile-controllers/multiplayer-quiz-controller.html');
+});
+
+router.get('/mp-quiz', function(req, res) {
   res.sendfile('views/multiplayer-quiz.html');
 });
+
 
 router.get('/mobile', function(req, res){
   res.sendfile('views/mobile-controllers/multiplayer-quiz-controller.html');
