@@ -4,7 +4,10 @@ var gameState = {
   started: false,
   players: [],
   questionNum: 1,
-  openBuzzer: true
+  openBuzzer: true,
+  correctAnswer: 'answer-c',
+  bounty: 100,
+  answerTimeoutId: null
 };
 
 
@@ -63,9 +66,6 @@ var showQuiz = function() {
 };
 
 
-
-
-
 var fastFadeInUp = function($element, delay) {
   if (delay > 0) {
     setTimeout(fastFadeInUp, delay, $element, 0);
@@ -83,7 +83,6 @@ var fadeInUp = function($element, delay) {
 
   $element.addClass('animated fadeInUp').removeClass('hidden');
 }
-
 
 var createRoom = function() {
   var socket = io();
@@ -123,6 +122,18 @@ var onPlayerData = function(data) {
     onPlayerBuzz(player);
   }
 
+  if (justPressed('answer-a', player)) {
+    onPlayerAnswer(player, 'answer-a');
+  }
+
+  if (justPressed('answer-b', player)) {
+    onPlayerAnswer(player, 'answer-b');
+  }
+
+  if (justPressed('answer-c', player)) {
+    onPlayerAnswer(player, 'answer-c');
+  }
+
 };
 
 var onPlayerReady = function(player) {
@@ -144,12 +155,63 @@ var onPlayerBuzz = function(player) {
       questionNumber: gameState.questionNum
     });
 
-    $('#status-text').text(`${player.username} is\nselecting`);
+    gameState.answerTimeoutId = setTimeout(function(){
+      n.setState(player.id, 'result', {
+        currentScore: player.score,
+        result: 'out-of-time'
+      });
 
+      updateStatus('OUT OF TIME!')
+    }, 10000, player);
+
+    var suffix = '-p' + player.pnum.toString();
+
+    $('#status-text').text(`${player.username} is\nselecting`);
+    $('.user-score').not('.invisible').not(`#score${suffix}`).addClass('faded');
   }
 };
 
-var onPlayerSelectOption
+var onPlayerAnswer = function(player, answer) {
+  if (gameState.answerTimeoutId) {
+    clearTimeout(gameState.answerTimeoutId);
+    gameState.answerTimeoutId = null;
+  }
+
+  if (answer === gameState.correctAnswer) {
+    // change background color of answer
+    $(`#${answer}`).addClass('correct');
+
+    // 
+
+    player.score += gameState.bounty;
+    updatePlayerUI(player);
+
+    n.setState(player.id, 'result', {
+      currentScore: player.score,
+      result: 'correct'
+    });
+
+    updateStatus('CORRECT!');
+    setTimeout(nextQuestion, 3000);
+  } else {
+    $(`#${answer}`).addClass('wrong');
+
+    n.setState(player.id, 'result', {
+      currentScore: player.score,
+      result: 'wrong'
+    });    
+
+    updateStatus('WRONG!');
+    setTimeout(updateStatus, 2000, 'BUZZ NOW!');
+
+    gameState.openBuzzer = true;
+  }
+
+
+
+
+};
+
 
 /////////////
 // HELPERS //
@@ -205,6 +267,28 @@ var justPressed =  (buttonName, player) => {
     && player.prevState
     && !player.prevState.buttons.includes(buttonName);
 }
+
+var updateStatus = (statusText) => {
+  $('#status-text').stop();
+
+  $('#status-text')
+    .fadeOut(200)
+    .queue( function(next) {
+      $(this).text(statusText);
+      next();
+    })
+    .delay(100)
+    .fadeIn(350);
+  // $('#status-text')
+
+};
+
+var nextQuestion = () => {
+  updateStatus('BUZZ NOW!');
+
+  $('#bounty').text(`+${bounty} pts`);
+
+};
 
 $(document).ready(function(){
   init();

@@ -162,9 +162,12 @@ section.layer {
 
 }
 
+#main-content #quiz .answer.correct{
+  background-color: #53d88b;
+}
+
 #main-content #quiz .answer.wrong{
   background-color: #d97878;
-  border: solid 2px #ffffff;
 }
 
 #main-content #quiz .answer .answer-label{
@@ -252,6 +255,10 @@ section.layer {
   align-items: center;
 }
 
+#footer .left #user-scores .user-score.faded {
+  opacity: 0.4;
+}
+
 #footer .left #user-scores .user-score .score {
   width: 150px;
   height: 93px;
@@ -302,6 +309,14 @@ section.layer {
   transform: skew(-20deg);
 }
 
+#footer .right #background-shape.correct {
+  background-color: #53d88b;
+}
+
+#footer .right #background-shape.wrong {
+  background-color: #d97878;
+}
+
 #footer .right #status-area {
   width: 320px;
   height: 114px;
@@ -318,7 +333,7 @@ section.layer {
   font-size: 26px;
 }
 
-#footer .right #status-area #countdown{
+#footer .right #status-area #countdown {
   font-size: 70px;
 
   margin-left: 20px;
