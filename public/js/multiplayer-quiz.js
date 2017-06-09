@@ -336,7 +336,7 @@ var nextQuestion = () => {
 
 
   $('#main-content').fadeOut(300).queue(function(next){
-    var nextQuestion = questions.pop();
+    var nextQuestion = questions.shift();
 
     gameState.bounty = nextQuestion.bounty;
     gameState.correctAnswer = nextQuestion.correctAnswer;
