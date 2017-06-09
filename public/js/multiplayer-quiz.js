@@ -1,6 +1,10 @@
+var n;
+
 var gameState = {
   started: false,
-  players: []
+  players: [],
+  questionNum: 1,
+  openBuzzer: true
 };
 
 
@@ -9,13 +13,6 @@ var init = function() {
   createRoom();
   showIntro();
 };
-
-
-
-
-
-
-
 
 
 
@@ -33,7 +30,7 @@ var startGame = function() {
 
   $('#instructions').removeClass('fast-animated fadeInUp').addClass('fast-animated fadeOutUp');
 
-  tickCountdown(5, showQuiz);
+  tickCountdown(3, showQuiz);
 }
 
 var tickCountdown = function(val, onComplete) {
@@ -58,18 +55,12 @@ var showQuiz = function() {
     $('#bg-quiz').addClass('animated fadeIn').removeClass('invisible');
     $('#quiz').addClass('animated fadeInUp').removeClass('hidden');
     $('#user-scores').addClass('fast-animated fadeInUp').removeClass('hidden');
-  }, 750)
+
+    gameState.players.map(
+      (player) => n.setState(player.id, 'buzzer')
+    );
+  }, 750);
 };
-
-
-var showQuizBackground = function() {
-  $("#bg-splash").removeClass('hidden');
-
-}
-
-
-
-
 
 
 
@@ -96,8 +87,7 @@ var fadeInUp = function($element, delay) {
 
 var createRoom = function() {
   var socket = io();
-  var n = nunchuck.init('host', socket);
-
+  n = nunchuck.init('host', socket);
   n.onJoin(onPlayerJoin);
   n.receive(onPlayerData);
 };
@@ -129,14 +119,37 @@ var onPlayerData = function(data) {
     onPlayerReady(player);
   }
 
+  if (justPressed('buzz', player)) {
+    onPlayerBuzz(player);
+  }
+
 };
 
 var onPlayerReady = function(player) {
-  if(!gameState.started && allPlayersReady()) {
-      startGame();      
+  if(!gameState.started) {
+    if(allPlayersReady()) {
+      startGame();
+    }
+  } else {
+    n.setState(player.id, 'buzzer');
   }
 };
 
+var onPlayerBuzz = function(player) {
+  if(gameState.openBuzzer) {
+    gameState.openBuzzer = false;
+
+    n.setState(player.id, 'answer-select', {
+      currentScore: player.score,
+      questionNumber: gameState.questionNum
+    });
+
+    $('#status-text').text(`${player.username} is\nselecting`);
+
+  }
+};
+
+var onPlayerSelectOption
 
 /////////////
 // HELPERS //
@@ -183,6 +196,14 @@ var updatePlayerUI = function(player) {
       $(`#ready${suffix}`).removeClass('ready');
     }
   }
+}
+
+
+var justPressed =  (buttonName, player) => {
+  return player.state 
+    && player.state.buttons.includes(buttonName)
+    && player.prevState
+    && !player.prevState.buttons.includes(buttonName);
 }
 
 $(document).ready(function(){

@@ -65,45 +65,45 @@
 
   Nunchuck.prototype.send = function() {
 
-    if (window.DeviceOrientationEvent) {
-      var options = {
-            alphaThreshold: 5,
-            betaThreshold: 5,
-            gammaThreshold: 5,
-            radians: false
-          };
+    // if (window.DeviceOrientationEvent) {
+    //   var options = {
+    //         alphaThreshold: 5,
+    //         betaThreshold: 5,
+    //         gammaThreshold: 5,
+    //         radians: false
+    //       };
 
-      _instance.prevData = {
-        alpha: 0,
-        beta: 0,
-        gamma: 0
-      };
+    //   _instance.prevData = {
+    //     alpha: 0,
+    //     beta: 0,
+    //     gamma: 0
+    //   };
 
-      window.addEventListener('deviceorientation', function (eventData) {
+    //   window.addEventListener('deviceorientation', function (eventData) {
 
-        var data = {
-          alpha: options.radians ? eventData.alpha * Math.PI / 180.0 : eventData.alpha,
-          beta: options.radians ? eventData.beta * Math.PI / 180.0 : eventData.beta,
-          gamma: options.radians ? eventData.gamma * Math.PI / 180.0 : eventData.gamma
-        };
+    //     var data = {
+    //       alpha: options.radians ? eventData.alpha * Math.PI / 180.0 : eventData.alpha,
+    //       beta: options.radians ? eventData.beta * Math.PI / 180.0 : eventData.beta,
+    //       gamma: options.radians ? eventData.gamma * Math.PI / 180.0 : eventData.gamma
+    //     };
 
-        if(Math.abs(data.alpha - _instance.prevData.alpha) >= options.alphaThreshold ||
-            Math.abs(data.beta - _instance.prevData.beta) >= options.betaThreshold ||
-            Math.abs(data.gamma - _instance.prevData.gamma) >= options.gammaThreshold
-            ) {
+    //     if(Math.abs(data.alpha - _instance.prevData.alpha) >= options.alphaThreshold ||
+    //         Math.abs(data.beta - _instance.prevData.beta) >= options.betaThreshold ||
+    //         Math.abs(data.gamma - _instance.prevData.gamma) >= options.gammaThreshold
+    //         ) {
 
-          _instance.socket.emit('nunchuck-data',
-            {
-              username: _instance.username,
-              roomId: _instance.roomId,
-              buttons: _instance.buttons,
-              orientation: data,
-              timestamp: Date.now()
-            });
-          _instance.prevData = data;
-        }
-      })
-    }
+    //       _instance.socket.emit('nunchuck-data',
+    //         {
+    //           username: _instance.username,
+    //           roomId: _instance.roomId,
+    //           buttons: _instance.buttons,
+    //           orientation: data,
+    //           timestamp: Date.now()
+    //         });
+    //       _instance.prevData = data;
+    //     }
+    //   })
+    // }
 
     // Add button listeners
     var buttons = document.getElementsByClassName('nunchuck-button');
